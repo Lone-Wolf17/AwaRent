@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class AddVacancy extends AppCompatActivity {
+public class VacancyListActivity extends AppCompatActivity {
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -33,9 +33,9 @@ public class AddVacancy extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_vacancy);
+        setContentView(R.layout.activity_vacancy_list);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.text_title_name);
+        mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

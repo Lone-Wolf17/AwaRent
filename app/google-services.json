@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "438485406064",
+    "firebase_url": "https://awarent-4b2fe.firebaseio.com",
+    "project_id": "awarent-4b2fe",
+    "storage_bucket": "awarent-4b2fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438485406064:android:91480f97a004fdd5",
+        "android_client_info": {
+          "package_name": "com.gmail.korex006.awarent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438485406064-dbuu40gnjrj0ulmfcbd4knt9pnp782md.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmail.korex006.awarent",
+            "certificate_hash": "bacf1b128fab1a8100ef950ca97324a6f6536afd"
+          }
+        },
+        {
+          "client_id": "438485406064-aamspbvp8s1kmrr3sk7h99j3ok1ru1b7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvPctWtII5q_MmQjS4_iCs2gFcPGvgg-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438485406064-aamspbvp8s1kmrr3sk7h99j3ok1ru1b7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
