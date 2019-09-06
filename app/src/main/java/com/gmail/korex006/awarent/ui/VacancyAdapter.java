@@ -1,6 +1,5 @@
 package com.gmail.korex006.awarent.ui;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.gmail.korex006.awarent.FirebaseUtil;
 import com.gmail.korex006.awarent.R;
 import com.gmail.korex006.awarent.Vacancy;
+import com.gmail.korex006.awarent.VacancyActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,46 +27,41 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class VacancyAdapter extends RecyclerView.Adapter<VacancyAdapter.DealViewHolder>{
+public class VacancyAdapter extends RecyclerView.Adapter<VacancyAdapter.VacancyViewHolder>{
     ArrayList<Vacancy> vacancies;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
-    private ChildEventListener mChildListener;
-    private ImageView imageDeal;
     private Context mContext;
+    private  ImageView imageVacancy;
 
-    public VacancyAdapter() {
-        //FirebaseUtil.openFbReference("traveldeals");
-        mFirebaseDatabase = FirebaseUtil.mFirebaseDB;
-        mDatabaseReference = FirebaseUtil.mDatabaseRef;
+    public VacancyAdapter () {
+        FirebaseDatabase mFirebaseDatabase = FirebaseUtil.mFirebaseDB;
+        DatabaseReference mDatabaseReference = FirebaseUtil.mDatabaseRef;
         this.vacancies = FirebaseUtil.mVacancies;
-        mChildListener = new ChildEventListener() {
+        ChildEventListener mChildListener = new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Vacancy td = dataSnapshot.getValue(Vacancy.class);
-                Log.d("Deal: ", td.getTitle());
-                td.setId(dataSnapshot.getKey());
-                vacancies.add(td);
-                notifyItemInserted(vacancies.size()-1);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Vacancy vacan = dataSnapshot.getValue(Vacancy.class);
+                Log.d("Vacancy", vacan.getApartmentType());
+                vacancies.add(vacan);
+                notifyItemChanged(vacancies.size()-1);
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         };
@@ -72,56 +69,54 @@ public class VacancyAdapter extends RecyclerView.Adapter<VacancyAdapter.DealView
     }
 
     @Override
-    public DealViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VacancyViewHolder onCreateViewHolder (ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View itemView = LayoutInflater.from(mContext)
-                .inflate(R.layout.rv_row, parent, false);
-        return new DealViewHolder(itemView);
-
+                .inflate(R.layout.vacancy_row, parent, false);
+        return new VacancyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(DealViewHolder holder, int position) {
-        Vacancy deal = vacancies.get(position);
-        holder.bind(vacancies);
+    public void onBindViewHolder(@NonNull VacancyAdapter.VacancyViewHolder holder, int position) {
+        Vacancy vacancy = vacancies.get(position);
+        holder.bind(vacancy);
     }
 
     @Override
-    public int getItemCount() {
-        return vacancies.size();
+    public int getItemCount() { return vacancies.size();
     }
 
-    public class DealViewHolder extends RecyclerView.ViewHolder
+    public class VacancyViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        TextView tvTitle;
-        TextView tvDescription;
-        TextView tvPrice;
+        TextView vnApartmentType;
+        TextView vnLocation;
+        TextView vnPrice;
 
-        public DealViewHolder(View itemView) {
+        public VacancyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
-            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
-            imageDeal = (ImageView) itemView.findViewById(R.id.imageDeal);
+            vnApartmentType = (TextView)itemView.findViewById(R.id.text_apartment_type);
+            vnLocation = (TextView) itemView.findViewById(R.id.text_location);
+            vnPrice = (TextView) itemView.findViewById(R.id.text_price);
+            imageVacancy = itemView.findViewById(R.id.imageVacancy);
             itemView.setOnClickListener(this);
         }
 
-        public void bind(TravelDeal deal) {
-            tvTitle.setText(deal.getTitle());
-            tvDescription.setText(deal.getDescription());
-            String price = "₦" + deal.getPrice();
-            tvPrice.setText(price);
-            showImage(deal.getImageUrl());
+        public void bind (Vacancy vacancy) {
+            vnApartmentType.setText(vacancy.getApartmentType());
+            vnLocation.setText(vacancy.getApartmentLocation());
+            String price = "₦" + vacancy.getmPrice();
+            vnPrice.setText(price);
+            showImage(vacancy.getImageUrl());
         }
 
         @Override
-        public void onClick(View view) {
+        public void onClick(View v) {
             int position = getAdapterPosition();
             Log.d("Click", String.valueOf(position));
-            TravelDeal selectedDeal = vacancies.get(position);
-            Intent intent = new Intent(view.getContext(), DealActivity.class);
-            intent.putExtra("Deal", selectedDeal);
-            view.getContext().startActivity(intent);
+            Vacancy selectedVacancy = vacancies.get(position);
+            Intent intent = new Intent(v.getContext(), VacancyActivity.class );
+            intent.putExtra("Vacancy", selectedVacancy);
+            v.getContext().startActivity(intent);
         }
 
         private void showImage(String url) {
@@ -129,17 +124,14 @@ public class VacancyAdapter extends RecyclerView.Adapter<VacancyAdapter.DealView
                 Glide.with(mContext)
                         .load(url)
                         .apply(new RequestOptions().override(200, 250)
-                        .circleCrop())
-                        .into(imageDeal);
-
-//                Picasso.get()
-//                       .load(url)
-//                       .resize(160, 160)
-//                        .centerCrop()
-//                        .into(imageDeal);
-
-
+                        .fitCenter())
+                        .into(imageVacancy);
             }
         }
     }
 }
+
+
+
+
+
