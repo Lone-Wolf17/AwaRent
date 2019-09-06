@@ -1,20 +1,52 @@
 package com.gmail.korex006.awarent;
 
-public class Vacancy {
+import java.io.Serializable;
+
+public class Vacancy implements Serializable {
     private User poster;
+    private String mPoster;
     private String location;
     private String apartmentType;
     private String apartmentLocation;
-    private float mPrice;
+    private String mPrice;
+    private String imageName;
+    private String imageUrl;
 
-    public Vacancy(User poster, String location, String apartmentType, String apartmentLocation, float mPrice) {
-        this.poster = poster;
-        this.location = location;
-        this.apartmentType = apartmentType;
-        this.apartmentLocation = apartmentLocation;
-        this.mPrice = mPrice;
+    public Vacancy (){}
+
+    public Vacancy(String poster, String apartmentType, String apartmentLocation, String mPrice) {
+        this.setmPoster(poster);
+        this.setApartmentType(apartmentType);
+        this.setApartmentLocation(apartmentLocation);
+        this.setmPrice(mPrice);
+//        this.setImageName(imageName);
+//        this.setImageUrl(imageUrl);
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
+    public String getmPoster() {
+        return mPoster;
+    }
+
+    public void setmPoster(String mPoster) {
+        this.mPoster = mPoster;
+    }
     public User getPoster() {
         return poster;
     }
@@ -47,11 +79,11 @@ public class Vacancy {
         this.apartmentLocation = apartmentLocation;
     }
 
-    public float getmPrice() {
+    public String getmPrice() {
         return mPrice;
     }
 
-    public void setmPrice(float mPrice) {
+    public void setmPrice(String mPrice) {
         this.mPrice = mPrice;
     }
 }

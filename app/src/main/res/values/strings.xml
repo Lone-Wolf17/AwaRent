@@ -5,16 +5,16 @@
     <string name="title_activity_add_vacancy">AddVacancy</string>
     <string name="title_name">Name:</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_addVacancy">Add Vacancy</string>
     <string name="title_phone_number">Phone:</string>
     <string name="hint_phone_number">Enter Agent\'s Phone Number</string>
     <string name="hint_poster_name">Enter Agent\'s Name</string>
-    <string name="hint_poster_email">Enter Agent\'s Email Address</string>
+    <string name="hint_apartment_price">Enter Apartment\'s Price</string>
     <string name="hint_apartment_type">Enter Apartment Type</string>
     <string name="hint_apartment_address">Enter Apartment\'s Address</string>
-    <string name="title_email_address">Email:</string>
-    <string name="title_apartment_type">Apartment Type</string>
-    <string name="title_apartment_address">Location</string>
+    <string name="title_price">Price:</string>
+    <string name="title_apartment_type">Apartment Type:</string>
+    <string name="title_apartment_address">Location:</string>
     <string name="title_home">Home</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
@@ -26,4 +26,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_vacancy_list">VacancyListActivity</string>
+    <string name="title_activity_vacancy">VacancyActivity</string>
 </resources>

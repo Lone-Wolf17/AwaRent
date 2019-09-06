@@ -7,11 +7,8 @@ import androidx.annotation.NonNull;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -29,38 +26,31 @@ public class FirebaseUtil {
     public static FirebaseAuth.AuthStateListener mAuthListener;
     public static ArrayList<Vacancy> mVacancies;
     private static final int RC_SIGN_IN = 123;
-    private static ListActivity caller;
+    private static VacancyListActivity caller;
     public static String userId;
 
     private FirebaseUtil(){};
     public static boolean isAdmin;
 
 
-    public static void openFbReference(String ref, final ListActivity callerActivity) {
+    public static void openFbReference(String ref) {
         if (firebaseUtil == null) {
             firebaseUtil = new FirebaseUtil();
             mFirebaseDB = FirebaseDatabase.getInstance();
-            mFirebaseAuth = FirebaseAuth.getInstance();
-            caller = callerActivity;
-
-            mAuthListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null) {
-                        FirebaseUtil.signIn();
-                        userId = firebaseAuth.getUid();
-  //                      checkAdmin(userId);
-                    }
-                    else {
-                        userId = firebaseAuth.getUid();
-//                        checkAdmin(userId);
-                    }
-                    Toast.makeText(callerActivity.getBaseContext(), "Welcome back!", Toast.LENGTH_LONG).show();
-                }
-            };
+            //mFirebaseAuth = FirebaseAuth.getInstance();
+            //caller = callerActivity;
             connectStorage();
 
         }
+//    public static void openFbReference(String ref, final VacancyListActivity callerActivity) {
+//        if (firebaseUtil == null) {
+//            firebaseUtil = new FirebaseUtil();
+//            mFirebaseDB = FirebaseDatabase.getInstance();
+//            mFirebaseAuth = FirebaseAuth.getInstance();
+//            caller = callerActivity;
+//            //connectStorage();
+//
+//        }
 
         mVacancies = new ArrayList<Vacancy>();
         mDatabaseRef = mFirebaseDB.getReference().child(ref);
@@ -114,6 +104,6 @@ public class FirebaseUtil {
     }
     public static void connectStorage() {
         mStorage = FirebaseStorage.getInstance();
-        mStorageRef = mStorage.getReference().child("deals_pictures");
+        mStorageRef = mStorage.getReference().child("vacancies_images");
     }
 }
